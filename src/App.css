@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+.container {
+  max-width: 80%;
+  height: 100vh;
+  margin: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.questions_and_asnwers {
+  height: 70vh;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding-top: 120px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* .questions_and_asnwers div {
+  border: solid 1px black;
+} */
+
+.students_list li,
+.questions_list li {
+  margin: 8px 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.students_list {
+  width: 15vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.questions_list {
+  width: 25vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.questions_list ol {
+  width: 50vw;
+}
+
+.content {
+  width: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.timer {
+  width: 50px;
+  height: 50px;
+  border: solid 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+  transition: all 2s;
+}
+
+.timer_initial {
+  border-color: skyblue;
+}
+.timer_half {
+  border-color: orange;
+}
+.timer_ending {
+  border-color: red;
+}
+
+.selected_question {
+  height: 30vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* align-items: center; */
 }
 
-.App-link {
-  color: #61dafb;
+.selected_question .question {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+}
+.selected_question .question_actions {
+  display: flex;
+  justify-content: end;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selected_student {
+  display: flex;
+  justify-content: end;
+}
+
+.selected_student .student_name {
+  width: 50%;
+  font-size: 32px;
+  font-weight: 800;
 }
