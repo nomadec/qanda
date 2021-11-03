@@ -13,7 +13,12 @@ const SelectedQuestion = ({
       </div>
 
       <div className="question_actions">
-        <button onClick={handleNextQuestion}>Next Question?</button>
+        <button
+          className="next_question_btn button button--anthe"
+          onClick={handleNextQuestion}
+        >
+          <span>Next Question?</span>
+        </button>
       </div>
     </div>
   );

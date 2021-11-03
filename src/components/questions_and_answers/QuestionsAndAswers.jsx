@@ -26,11 +26,11 @@ const QuestionsAndAswers = () => {
     <div className="questions_and_asnwers">
       <StudentsList students={students} />
       <div className="content">
-        <Timer studentInx={studentInx} questionInx={questionInx} />
         <SelectedStudent
           student={students[studentInx]}
           handleNextStudent={handleNextStudent}
         />
+        <Timer studentInx={studentInx} questionInx={questionInx} />
         <SelectedQuestion
           question={questions[questionInx]}
           handleNextQuestion={handleNextQuestion}

@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 const defaultTimer = 30;
-const timerInitial = "timer_initial";
-const timerHalf = "timer_half";
-const timerEnding = "timer_ending";
+const timerInitialColor = "timer_initial";
+const timerHalfColor = "timer_half";
+const timerEndingColor = "timer_ending";
 
 const Timer = ({ studentInx, questionInx }) => {
   const [time, setTime] = useState(defaultTimer);
   const [timerRef, setTimerRef] = useState(undefined);
-  const [timerColor, setTimerColor] = useState(timerInitial);
+  const [timerColor, setTimerColor] = useState(timerInitialColor);
 
   useEffect(() => {
-    setTime(defaultTimer);
-    clearInterval(timerRef);
-    const intervalRef = setInterval(tickTack, 1000);
-    setTimerRef(intervalRef);
+    startTimer();
 
-    return () => clearInterval(timerRef);
+    return cleanUpOnUnmount;
   }, [studentInx]);
 
   useEffect(() => {
@@ -24,10 +21,28 @@ const Timer = ({ studentInx, questionInx }) => {
   }, [time]);
 
   useEffect(() => {
-    clearInterval(timerRef);
-    console.log(timerRef);
-    setTime(defaultTimer);
+    stopTimer();
   }, [questionInx]);
+
+  function startTimer() {
+    setTime(defaultTimer);
+    setTimerColor(timerInitialColor);
+    clearInterval(timerRef);
+    if (studentInx > -1) {
+      const intervalRef = setInterval(tickTack, 1000);
+      setTimerRef(intervalRef);
+    }
+  }
+
+  function stopTimer() {
+    clearInterval(timerRef);
+    setTime(defaultTimer);
+    setTimerColor(timerInitialColor);
+  }
+
+  function cleanUpOnUnmount() {
+    clearInterval(timerRef);
+  }
 
   function tickTack() {
     setTime((prevState) => {
@@ -41,13 +56,17 @@ const Timer = ({ studentInx, questionInx }) => {
 
   function changeTimerColor() {
     if (time <= defaultTimer / 3) {
-      setTimerColor(timerEnding);
+      setTimerColor(timerEndingColor);
     } else if (time <= defaultTimer / 2) {
-      setTimerColor(timerHalf);
+      setTimerColor(timerHalfColor);
     }
   }
 
-  return <div className={`timer ${timerColor}`}>{time}</div>;
+  return (
+    <div className="timer_block">
+      <div className={`timer ${timerColor}`}>{time}</div>
+    </div>
+  );
 };
 
 export default Timer;
