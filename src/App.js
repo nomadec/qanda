@@ -1,12 +1,13 @@
-import "./App.css";
-// import "./base.css";
-import QuestionsAndAswers from "./components/questions_and_answers/QuestionsAndAswers";
+import { CssBaseline } from '@mui/material';
+import './App.css';
+import Routes from './routes/Routes';
 
 function App() {
   return (
-    <div className="container">
-      <QuestionsAndAswers />
-    </div>
+    <>
+      <CssBaseline />
+      <Routes />
+    </>
   );
 }
 

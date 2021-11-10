@@ -4,12 +4,24 @@
   margin: auto;
 }
 
+.header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.main {
+  /* padding-top: 30px; */
+  height: calc(100% - 80px);
+}
+
+/* ! Q&A css styles */
+
 .questions_and_asnwers {
   height: 70vh;
   display: flex;
   justify-content: space-between;
   /* align-items: center; */
-  padding-top: 120px;
 }
 /* 
 .questions_and_asnwers div {
@@ -39,260 +51,21 @@
 .content {
   width: 50vw;
   display: flex;
-  flex-wrap: wrap;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: space-between;
 }
 
-.timer_block {
-  display: flex;
-  align-items: center;
-}
+/* ! Erudite css styles */
 
-.timer_block .timer {
-  width: 50px;
-  height: 50px;
-  border: solid 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  font-size: 32px;
-  font-weight: 700;
-  transition: all 2s;
-}
-
-.timer_block .timer_initial {
-  border-color: skyblue;
-}
-.timer_block .timer_half {
-  border-color: orange;
-}
-.timer_block .timer_ending {
-  border-color: red;
-}
-
-.selected_question {
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-}
-
-.selected_question .question {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 32px;
-  font-weight: 800;
-}
-.selected_question .question_actions {
-  display: flex;
-  justify-content: end;
-}
-
-.selected_question .next_question_btn {
-  padding: 12px;
-}
-
-.selected_student_block {
-  display: flex;
-  /* justify-content: end; */
-  align-items: center;
-  flex-grow: 1;
-}
-
-.selected_student_block .student_name {
-  width: 50%;
-  height: 40px;
-  font-size: 32px;
-  font-weight: 800;
-  border: solid 4px black;
-  border-radius: 12px;
-  padding: 8px;
-  text-align: center;
-}
-
-.selected_student_block .random_student_btn {
-  margin-left: 12px;
-  /* height: 50px; */
-  /* border: solid 1px red; */
-  cursor: pointer;
-}
-
-.button {
-  pointer-events: auto;
-  cursor: pointer;
-  background: #e7e7e7;
-  border: none;
-  /* padding: 1.5rem 3rem; */
-  margin: 0;
-  font-family: inherit;
-  font-size: inherit;
-  position: relative;
-  display: inline-block;
-}
-
-.button::before,
-.button::after {
-  position: absolute;
-  top: 0;
-  left: 0;
+.erudite_menu {
+  height: 95%;
   width: 100%;
-  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 
-.button--helene {
-  border-radius: 7px;
-  border: 1px solid #000;
-  font-family: chapman-extended, sans-serif;
-  font-weight: 900;
-  font-style: normal;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  padding: 0 3rem;
-  /* height: 4rem; */
-}
-
-.button--helene::before {
-  content: "";
-  top: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-  background: rgba(0, 0, 0, 0.5);
-  filter: blur(7px);
-  border-radius: 7px;
-  z-index: -1;
-  transform: translate3d(0, 15px, 0);
-  transition: transform 0.45s;
-}
-
-.button--helene:hover::before {
-  transform: translate3d(0, 0, 0);
-}
-
-.button--helene span {
-  display: block;
-}
-
-.button--helene > span {
-  height: 100%;
-  overflow: hidden;
-  line-height: 3rem;
-}
-
-.button--helene:hover > span > span {
-  animation: slotMachine 0.15s ease-out forwards 3;
-}
-
-@keyframes slotMachine {
-  50% {
-    transform: translate3d(0, 100%, 0);
-    opacity: 0;
-  }
-  51% {
-    transform: translate3d(0, -100%, 0);
-    opacity: 0;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-
-.button--janus {
-  font-family: freight-display-pro, serif;
-  font-weight: 900;
-  /* width: calc(175px / 100 * 100); */
-  width: 140px;
-  /* height: calc(120px / 100 * 100); */
-  height: 96px;
-  color: #fff;
-  background: none;
-}
-
-.button--janus::before {
-  content: "";
-  background: #e6e6e6;
-  -webkit-clip-path: path(
-    "M154.5,88.5 C131,113.5 62.5,110 30,89.5 C-2.5,69 -3.5,42 4.5,25.5 C12.5,9 33.5,-6 85,3.5 C136.5,13 178,63.5 154.5,88.5 Z"
-  );
-  clip-path: path(
-    "M154.5,88.5 C131,113.5 62.5,110 30,89.5 C-2.5,69 -3.5,42 4.5,25.5 C12.5,9 33.5,-6 85,3.5 C136.5,13 178,63.5 154.5,88.5 Z"
-  );
-  transition: clip-path 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55),
-    -webkit-clip-path 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55),
-    background 0.5s ease;
-}
-
-.button--janus:hover::before {
-  background: #000;
-  -webkit-clip-path: path(
-    "M143,77 C117,96 74,100.5 45.5,91.5 C17,82.5 -10.5,57 5.5,31.5 C21.5,6 79,-5.5 130.5,4 C182,13.5 169,58 143,77 Z"
-  );
-  clip-path: path(
-    "M143,77 C117,96 74,100.5 45.5,91.5 C17,82.5 -10.5,57 5.5,31.5 C21.5,6 79,-5.5 130.5,4 C182,13.5 169,58 143,77 Z"
-  );
-}
-
-.button--janus::after {
-  content: "";
-  height: 86%;
-  width: 97%;
-  top: 5%;
-  border-radius: 58% 42% 55% 45% / 56% 45% 55% 44%;
-  border: 1px solid #000;
-  transform: rotate(-20deg);
-  z-index: -1;
-  transition: transform 0.5s cubic-bezier(0.585, 2.5, 0.645, 0.55);
-}
-
-.button--janus:hover::after {
-  transform: translate3d(0, -5px, 0);
-}
-
-.button--janus span {
-  display: block;
-  transition: transform 0.3s ease;
-  mix-blend-mode: difference;
-}
-
-.button--janus:hover span {
-  transform: translate3d(0, -10px, 0);
-}
-
-.button--anthe {
-  font-family: bely-display, sans-serif;
-  color: #fff;
-  background: none;
-}
-
-.button--anthe::before {
-  content: "";
-  background: #000;
-  -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
-  clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
-  transition: clip-path 0.4s cubic-bezier(0.2, 1, 0.8, 1),
-    -webkit-clip-path 0.4s cubic-bezier(0.2, 1, 0.8, 1);
-}
-
-.button--anthe:hover::before {
-  background: #000;
-  -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-}
-
-.button--anthe span {
-  display: block;
-  mix-blend-mode: difference;
-  transition: transform 0.4s cubic-bezier(0.2, 1, 0.8, 1);
-}
-
-.button--anthe:hover span {
-  transform: translate3d(-10px, 0, 0);
+.erudite_question_dtls {
+  height: 95%;
 }

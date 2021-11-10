@@ -1,46 +1,38 @@
 export default [
   {
-    name: "Beksultan",
+    name: 'Atahan',
     is_active: true,
   },
   {
-    name: "Burul",
+    name: 'Burul',
     is_active: true,
   },
   {
-    name: "Omurbek",
+    name: 'Omurbek',
     is_active: true,
   },
   {
-    name: "Bahtiyar",
+    name: 'Bahtiyar',
     is_active: true,
   },
   {
-    name: "Pavel",
+    name: 'Perizat',
     is_active: true,
   },
   {
-    name: "Dariya",
+    name: 'Nurahmed',
     is_active: true,
   },
   {
-    name: "Perizat",
+    name: 'Emir',
     is_active: true,
   },
   {
-    name: "Nurahmed",
+    name: 'Bayaman',
     is_active: true,
   },
   {
-    name: "Emir",
-    is_active: true,
-  },
-  {
-    name: "Bayaman",
-    is_active: true,
-  },
-  {
-    name: "Satina",
+    name: 'Satina',
     is_active: true,
   },
   {
@@ -48,15 +40,19 @@ export default [
     is_active: true,
   },
   {
-    name: "Akjol",
+    name: 'Akjol',
     is_active: true,
   },
   {
-    name: "Erbol",
+    name: 'Erbol',
     is_active: true,
   },
   {
-    name: "Mairambek",
+    name: 'Mairambek',
+    is_active: true,
+  },
+  {
+    name: 'Pavel',
     is_active: true,
   },
 ];

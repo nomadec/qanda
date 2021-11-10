@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from "react";
+import { CircularProgress, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 const defaultTimer = 30;
-const timerInitialColor = "timer_initial";
-const timerHalfColor = "timer_half";
-const timerEndingColor = "timer_ending";
+const timerInitialColor = 'info';
+const timerHalfColor = 'warning';
+const timerEndingColor = 'error';
 
-const Timer = ({ studentInx, questionInx }) => {
-  const [time, setTime] = useState(defaultTimer);
+const Timer = ({ seconds = defaultTimer, started = false }) => {
+  const [time, setTime] = useState(seconds);
   const [timerRef, setTimerRef] = useState(undefined);
   const [timerColor, setTimerColor] = useState(timerInitialColor);
+  const [progress, setProgress] = useState(100);
 
   useEffect(() => {
-    startTimer();
+    updatedTimerStatus();
 
     return cleanUpOnUnmount;
-  }, [studentInx]);
+  }, [started]);
+
+  function updatedTimerStatus() {
+    if (started) {
+      stopTimer();
+      startTimer();
+    } else {
+      stopTimer();
+    }
+  }
 
   useEffect(() => {
     changeTimerColor();
   }, [time]);
 
-  useEffect(() => {
-    stopTimer();
-  }, [questionInx]);
-
   function startTimer() {
-    setTime(defaultTimer);
-    setTimerColor(timerInitialColor);
-    clearInterval(timerRef);
-    if (studentInx > -1) {
-      const intervalRef = setInterval(tickTack, 1000);
-      setTimerRef(intervalRef);
-    }
+    const intervalRef = setInterval(tickTack, 1000);
+    setTimerRef(intervalRef);
   }
 
   function stopTimer() {
@@ -47,6 +53,8 @@ const Timer = ({ studentInx, questionInx }) => {
   function tickTack() {
     setTime((prevState) => {
       if (prevState > 0) {
+        const currProgress = 100 - ((prevState - 1) / defaultTimer) * 100;
+        setProgress(currProgress);
         return prevState - 1;
       } else {
         return prevState;
@@ -63,9 +71,31 @@ const Timer = ({ studentInx, questionInx }) => {
   }
 
   return (
-    <div className="timer_block">
-      <div className={`timer ${timerColor}`}>{time}</div>
-    </div>
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress
+        variant="determinate"
+        value={progress}
+        size={70}
+        thickness={5.5}
+        color={timerColor}
+      />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="h6" component="div">
+          {dayjs.duration(time * 1000).format('mm:ss')}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 
