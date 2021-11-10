@@ -10,7 +10,9 @@ export default function ActionAreaCard({ item }) {
     <Card>
       <CardActionArea>
         <Link to={`${URL_ERUDITE}/details/${item.id}`}>
-          <CardMedia component="img" image={item.img} />
+          {item.isActive ? (
+            <CardMedia component="img" image={item.img} />
+          ) : null}
         </Link>
       </CardActionArea>
     </Card>

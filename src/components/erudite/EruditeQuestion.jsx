@@ -14,13 +14,18 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getOneQuestion } from '../../api/erudite/questionsApi';
+import {
+  getOneQuestion,
+  setActiveStatus,
+} from '../../api/erudite/questionsApi';
 import Timer from '../questions_and_answers/Timer';
+import ActionsMenu from '../ActionsMenu/ActionsMenu';
 
 const EruditeQuestion = () => {
   const { id } = useParams();
   const [question, setQuestion] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     setQuestion(getOneQuestion(id));
@@ -29,6 +34,37 @@ const EruditeQuestion = () => {
   function handleShow(e) {
     e.preventDefault();
     setShowAnswer((prevState) => !prevState);
+    setActiveStatus(id, false);
+  }
+
+  function handleMenuOpen() {
+    setShowMenu(true);
+  }
+
+  function handleMenuClose() {
+    setShowMenu(false);
+  }
+
+  function isMenuOpen(block) {
+    if (showMenu && block === 'question' && !showAnswer) return true;
+    else if (showMenu && block === 'answer' && showAnswer) return true;
+    else return false;
+  }
+
+  function handleZoomIn(key) {
+    return () => {
+      const updatedQuestion = { ...question };
+      updatedQuestion[key] += 1;
+      setQuestion(updatedQuestion);
+    };
+  }
+
+  function handleZoomOut(key) {
+    return () => {
+      const updatedQuestion = { ...question };
+      updatedQuestion[key] -= 1;
+      setQuestion(updatedQuestion);
+    };
   }
 
   return (
@@ -39,6 +75,7 @@ const EruditeQuestion = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          overflow: 'visible',
         }}
       >
         <CardHeader
@@ -48,18 +85,29 @@ const EruditeQuestion = () => {
         />
 
         <CardContent>
-          <Accordion expanded={!showAnswer} onChange={handleShow}>
-            <AccordionSummary
+          <Accordion
+            expanded={!showAnswer}
+            onChange={handleShow}
+            sx={{ backgroundColor: 'whitesmoke' }}
+          >
+            <ActionsMenu
+              showMenu={isMenuOpen('question')}
+              handleMenuClose={handleMenuClose}
+              handleZoomIn={handleZoomIn('questionFontSize')}
+              handleZoomOut={handleZoomOut('questionFontSize')}
+            />
+            {/* <AccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
             >
               <Typography>Question</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
+            </AccordionSummary> */}
+            <AccordionDetails onMouseOver={handleMenuOpen}>
               <Typography
-                variant="h3"
-                component="h2"
+                // variant="h3"
+                // component="h2"
                 color="text.primary"
+                fontSize={question?.questionFontSize}
                 fontWeight="bold"
                 fontStyle="italic"
               >
@@ -67,21 +115,32 @@ const EruditeQuestion = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion expanded={showAnswer} onChange={handleShow}>
-            <AccordionSummary
+          <Accordion
+            expanded={showAnswer}
+            onChange={handleShow}
+            sx={{ backgroundColor: 'whitesmoke' }}
+          >
+            <ActionsMenu
+              showMenu={isMenuOpen('answer')}
+              handleMenuClose={handleMenuClose}
+              handleZoomIn={handleZoomIn('answerFontSize')}
+              handleZoomOut={handleZoomOut('answerFontSize')}
+            />
+            {/* <AccordionSummary
               aria-controls="panel2d-content"
               id="panel2d-header"
             >
               <Typography>Answer</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
+            </AccordionSummary> */}
+            <AccordionDetails onMouseOver={handleMenuOpen}>
               <Typography
-                variant="h3"
-                component="h2"
+                // variant="h3"
+                // component="h2"
                 color="text.primary"
                 fontWeight="bold"
                 fontStyle="italic"
                 textAlign="center"
+                fontSize={question?.answerFontSize}
               >
                 {question?.answer}
               </Typography>
