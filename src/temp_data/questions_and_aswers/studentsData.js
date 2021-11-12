@@ -51,8 +51,8 @@ export default [
     name: 'Mairambek',
     is_active: true,
   },
-  {
-    name: 'Pavel',
-    is_active: true,
-  },
+  // {
+  //   name: 'Pavel',
+  //   is_active: true,
+  // },
 ];

@@ -3,9 +3,11 @@ import { Box } from '@mui/system';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import duration from 'dayjs/plugin/duration';
+import ActionsMenu from '../ActionsMenu/ActionsMenu';
 dayjs.extend(duration);
 
 const defaultTimer = 30;
+const defaultProgress = 100;
 const timerInitialColor = 'info';
 const timerHalfColor = 'warning';
 const timerEndingColor = 'error';
@@ -14,13 +16,14 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   const [time, setTime] = useState(seconds);
   const [timerRef, setTimerRef] = useState(undefined);
   const [timerColor, setTimerColor] = useState(timerInitialColor);
-  const [progress, setProgress] = useState(100);
+  const [progress, setProgress] = useState(defaultProgress);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     updatedTimerStatus();
 
     return cleanUpOnUnmount;
-  }, [started]);
+  }, [started, seconds]);
 
   function updatedTimerStatus() {
     if (started) {
@@ -42,7 +45,8 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
 
   function stopTimer() {
     clearInterval(timerRef);
-    setTime(defaultTimer);
+    setTime(seconds);
+    setProgress(defaultProgress);
     setTimerColor(timerInitialColor);
   }
 
@@ -53,7 +57,7 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   function tickTack() {
     setTime((prevState) => {
       if (prevState > 0) {
-        const currProgress = 100 - ((prevState - 1) / defaultTimer) * 100;
+        const currProgress = 100 - ((prevState - 1) / seconds) * 100;
         setProgress(currProgress);
         return prevState - 1;
       } else {
@@ -63,15 +67,41 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   }
 
   function changeTimerColor() {
-    if (time <= defaultTimer / 3) {
+    if (time <= seconds / 3) {
       setTimerColor(timerEndingColor);
-    } else if (time <= defaultTimer / 2) {
+    } else if (time <= seconds / 2) {
       setTimerColor(timerHalfColor);
     }
   }
 
+  function handleMenuOpen() {
+    setShowMenu(true);
+  }
+
+  function handleMenuClose() {
+    setShowMenu(false);
+  }
+
+  function handleStart() {
+    startTimer();
+  }
+
+  function handleReset() {
+    stopTimer();
+    startTimer();
+  }
+
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+    <Box
+      sx={{ position: 'relative', display: 'inline-flex' }}
+      onMouseOver={handleMenuOpen}
+    >
+      <ActionsMenu
+        showMenu={showMenu}
+        handleMenuClose={handleMenuClose}
+        handleStart={handleStart}
+        handleReset={handleReset}
+      />
       <CircularProgress
         variant="determinate"
         value={progress}

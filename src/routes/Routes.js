@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AppsPage from '../pages/AppsPage';
+import EruditeEditPage from '../pages/Erudite/EruditeEditPage';
 import EruditePage from '../pages/Erudite/EruditePage';
 import EruditeQuestionPage from '../pages/Erudite/EruditeQuestionPage';
 import QuestionsAndAnswersPage from '../pages/QandA/QuestionsAndAnswersPage';
@@ -18,6 +19,7 @@ const Routes = () => {
           path={`${URL_ERUDITE}/details/:id`}
           component={EruditeQuestionPage}
         />
+        <Route exact path={`${URL_ERUDITE}/edit`} component={EruditeEditPage} />
         {/* <Route component={Page404} /> */}
       </Switch>
     </BrowserRouter>

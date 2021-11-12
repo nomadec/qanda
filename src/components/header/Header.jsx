@@ -1,16 +1,34 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { IconButton } from '@mui/material';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { AppBar, IconButton, Toolbar } from '@mui/material';
+import { Box } from '@mui/system';
+import ReplyIcon from '@mui/icons-material/Reply';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Header = () => {
   const history = useHistory();
 
   return (
     <>
-      <IconButton aria-label="share" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" color="transparent" elevation={1}>
+          <Toolbar>
+            <IconButton aria-label="go-back" onClick={history.goBack}>
+              {/* <ArrowBackIcon /> */}
+              <ReplyIcon />
+            </IconButton>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Link to={`${history.location.pathname}/edit`}>
+                <IconButton aria-label="edit">
+                  <EditIcon />
+                </IconButton>
+              </Link>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
     </>
   );
 };

@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ReplayIcon from '@mui/icons-material/Replay';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 
@@ -16,6 +17,7 @@ const ActionsMenu = ({
   handleAdd,
   handleRemove,
   handleStart,
+  handleReset,
   handleMenuClose,
   handleZoomIn,
   handleZoomOut,
@@ -51,6 +53,14 @@ const ActionsMenu = ({
           <MenuItem onClick={handleStart}>
             <ListItemIcon>
               <PlayArrowIcon />
+            </ListItemIcon>
+          </MenuItem>
+        )}
+
+        {handleReset && (
+          <MenuItem onClick={handleReset}>
+            <ListItemIcon>
+              <ReplayIcon />
             </ListItemIcon>
           </MenuItem>
         )}

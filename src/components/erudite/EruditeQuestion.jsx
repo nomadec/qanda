@@ -14,11 +14,8 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import {
-  getOneQuestion,
-  setActiveStatus,
-} from '../../api/erudite/questionsApi';
-import Timer from '../questions_and_answers/Timer';
+import { getOneQuestion, patchQuestion } from '../../api/erudite/questionsApi';
+import Timer from '../timer/Timer';
 import ActionsMenu from '../ActionsMenu/ActionsMenu';
 
 const EruditeQuestion = () => {
@@ -34,7 +31,7 @@ const EruditeQuestion = () => {
   function handleShow(e) {
     e.preventDefault();
     setShowAnswer((prevState) => !prevState);
-    setActiveStatus(id, false);
+    patchQuestion(id, 'isActive', false);
   }
 
   function handleMenuOpen() {
@@ -53,17 +50,15 @@ const EruditeQuestion = () => {
 
   function handleZoomIn(key) {
     return () => {
-      const updatedQuestion = { ...question };
-      updatedQuestion[key] += 1;
-      setQuestion(updatedQuestion);
+      patchQuestion(id, key, question[key] + 1);
+      setQuestion(getOneQuestion(id));
     };
   }
 
   function handleZoomOut(key) {
     return () => {
-      const updatedQuestion = { ...question };
-      updatedQuestion[key] -= 1;
-      setQuestion(updatedQuestion);
+      patchQuestion(id, key, question[key] - 1);
+      setQuestion(getOneQuestion(id));
     };
   }
 
@@ -79,8 +74,8 @@ const EruditeQuestion = () => {
         }}
       >
         <CardHeader
-          action={<Timer />}
-          title="Питонамешалка"
+          action={<Timer seconds={question?.timer} started={false} />}
+          // title="Питонамешалка"
           titleTypographyProps={{ fontWeight: 'bold' }}
         />
 

@@ -1,21 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import AppCard from './AppCard';
+import { Grid } from '@mui/material';
+import { Box } from '@mui/system';
 import { URL_ERUDITE, URL_QANDA } from '../../utils/consts';
+
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 const AppsList = () => {
   return (
-    <div className="apps_menu">
-      <Link to={URL_QANDA}>
-        <div className="app_card">
-          <span>Q&A</span>
-        </div>
-      </Link>
-      <Link to={URL_ERUDITE}>
-        <div className="app_card">
-          <span>Эрудит</span>
-        </div>
-      </Link>
-    </div>
+    <Box>
+      <Grid container columnSpacing={2}>
+        <Grid item xs={3}>
+          <AppCard
+            title="Q&A"
+            link={URL_QANDA}
+            icon={<QuestionAnswerIcon fontSize="inherit" />}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <AppCard
+            title="Эрудит"
+            link={URL_ERUDITE}
+            icon={<SportsKabaddiIcon fontSize="inherit" />}
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

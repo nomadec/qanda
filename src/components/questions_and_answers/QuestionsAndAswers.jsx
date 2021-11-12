@@ -16,7 +16,7 @@ import { getStudents } from '../../api/questions_and_answers/studentsApi';
 import { makeRandomInt } from '../../utils/helper';
 import QuestionsList from './QuestionsList';
 import StudentsList from './StudentsList';
-import Timer from './Timer';
+import Timer from '../timer/Timer';
 
 const QuestionsAndAswers = () => {
   const students = getStudents();
@@ -33,7 +33,8 @@ const QuestionsAndAswers = () => {
   function handleNextStudent() {
     const randomInt = makeRandomInt(0, students.length - 1);
     setStudentInx(randomInt);
-    setIsTimerStarted(randomInt);
+    if (!randomInt) setIsTimerStarted(true);
+    else setIsTimerStarted(randomInt);
   }
 
   return (
@@ -46,6 +47,7 @@ const QuestionsAndAswers = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            overflow: 'visible',
           }}
         >
           <CardHeader
