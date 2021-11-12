@@ -83,7 +83,8 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   }
 
   function handleStart() {
-    startTimer();
+    if (started) return;
+    else startTimer();
   }
 
   function handleReset() {
