@@ -14,6 +14,8 @@ const timerEndingColor = 'error';
 
 const Timer = ({ seconds = defaultTimer, started = false }) => {
   const [time, setTime] = useState(seconds);
+  const [isStarted, setIsStarted] = useState(false);
+
   const [timerRef, setTimerRef] = useState(undefined);
   const [timerColor, setTimerColor] = useState(timerInitialColor);
   const [progress, setProgress] = useState(defaultProgress);
@@ -41,6 +43,7 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   function startTimer() {
     const intervalRef = setInterval(tickTack, 1000);
     setTimerRef(intervalRef);
+    setIsStarted(true);
   }
 
   function stopTimer() {
@@ -83,8 +86,13 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
   }
 
   function handleStart() {
-    if (started) return;
-    else startTimer();
+    if (isStarted) {
+      console.log('started', started);
+      return;
+    } else {
+      console.log('ended', started);
+      startTimer();
+    }
   }
 
   function handleReset() {
