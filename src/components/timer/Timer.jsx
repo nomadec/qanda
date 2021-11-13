@@ -87,10 +87,8 @@ const Timer = ({ seconds = defaultTimer, started = false }) => {
 
   function handleStart() {
     if (isStarted) {
-      console.log('started', started);
       return;
     } else {
-      console.log('ended', started);
       startTimer();
     }
   }

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Paper, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from '@mui/system';
-import { getQuestions, patchQuestion } from '../../api/erudite/questionsApi';
+import {
+  deleteQuestions,
+  getQuestions,
+  patchQuestion,
+  postQuestion,
+} from '../../api/erudite/questionsApi';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
@@ -61,19 +67,39 @@ const columns = [
   },
 ];
 
-// const rows = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-//   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-//   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-//   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-//   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 30 },
-// ];
-
 const EruditeDataEdit = () => {
-  const rows = getQuestions();
+  const [rows, setRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  useEffect(() => {
+    setRows(getQuestions());
+  }, []);
+
+  function handleNewRecord() {
+    const newRecord = {
+      question: null,
+      answer: null,
+      img: null,
+      timer: 60,
+      isActive: true,
+      questionFontSize: 48,
+      answerFontSize: 48,
+    };
+    postQuestion(newRecord);
+    setRows(getQuestions());
+  }
 
   function handleCellCommit({ id, field, value }) {
     patchQuestion(id, field, value);
+  }
+
+  function handleSelectionChange(selected) {
+    setSelectedRows(selected);
+  }
+
+  function handleDeleteSelected() {
+    deleteQuestions(selectedRows);
+    setRows(getQuestions());
   }
 
   return (
@@ -88,13 +114,25 @@ const EruditeDataEdit = () => {
         <Typography variant="h6" component="h2" color="primary">
           Questions
         </Typography>
-        <Button
-          variant="outlined"
-          color="secondary"
-          startIcon={<AddCircleIcon />}
-        >
-          New Question
-        </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <Button
+            variant="contained"
+            startIcon={<AddCircleIcon />}
+            onClick={handleNewRecord}
+            sx={{ marginRight: 1 }}
+          >
+            New Question
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<DeleteIcon />}
+            onClick={handleDeleteSelected}
+            disabled={!Boolean(selectedRows.length)}
+          >
+            Delete {Boolean(selectedRows.length) && `(${selectedRows.length})`}
+          </Button>
+        </Box>
       </Box>
       <Box sx={{ height: '75vh', width: '100%' }}>
         <DataGrid
@@ -103,6 +141,7 @@ const EruditeDataEdit = () => {
           columns={columns}
           checkboxSelection
           // onStateChange={handleStateChange}
+          onSelectionModelChange={handleSelectionChange}
           onCellEditCommit={handleCellCommit}
           // onRowEditCommit={handleStateChange}
         />

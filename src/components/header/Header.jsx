@@ -1,13 +1,19 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AppBar, IconButton, Toolbar } from '@mui/material';
 import { Box } from '@mui/system';
 import ReplyIcon from '@mui/icons-material/Reply';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EditIcon from '@mui/icons-material/Edit';
+
+export const headerActions = {};
 
 const Header = () => {
   const history = useHistory();
+  const [actions, setActions] = useState({});
+
+  useEffect(() => {
+    setActions(headerActions);
+  }, [headerActions]);
 
   function isHomePage() {
     return history.location.pathname === '/';
@@ -25,12 +31,10 @@ const Header = () => {
               </IconButton>
             )}
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Link to={`${history.location.pathname}/edit`}>
-                <IconButton aria-label="edit">
-                  <EditIcon />
-                </IconButton>
-              </Link>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {Object.entries(actions).map(([k, v]) => (
+                <div key={`hactions-${k}`}>{v}</div>
+              ))}
             </Box>
           </Toolbar>
         </AppBar>
