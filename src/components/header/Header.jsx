@@ -9,15 +9,21 @@ import EditIcon from '@mui/icons-material/Edit';
 const Header = () => {
   const history = useHistory();
 
+  function isHomePage() {
+    return history.location.pathname === '/';
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color="transparent" elevation={1}>
           <Toolbar>
-            <IconButton aria-label="go-back" onClick={history.goBack}>
-              {/* <ArrowBackIcon /> */}
-              <ReplyIcon />
-            </IconButton>
+            {!isHomePage() && (
+              <IconButton aria-label="go-back" onClick={history.goBack}>
+                {/* <ArrowBackIcon /> */}
+                <ReplyIcon />
+              </IconButton>
+            )}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Link to={`${history.location.pathname}/edit`}>
