@@ -7,7 +7,7 @@ import { URL_ERUDITE } from '../../utils/consts';
 
 export default function ActionAreaCard({ item }) {
   return (
-    <Card>
+    <Card sx={{ width: '24%', height: '24%' }}>
       <CardActionArea>
         <Link to={`${URL_ERUDITE}/details/${item.id}`}>
           {item.isActive ? (

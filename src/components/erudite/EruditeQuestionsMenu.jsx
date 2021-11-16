@@ -56,7 +56,6 @@ const EruditeQuestionsMenu = () => {
   }
 
   function filterQuestionsByTopic(topic) {
-    console.log(topic);
     return questions.filter((el) => (el.topic || 'default') === topic);
   }
 
