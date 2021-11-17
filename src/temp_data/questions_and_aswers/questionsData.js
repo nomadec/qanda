@@ -162,3 +162,18 @@ export const localStorageQuestions = [
   'Как очистить весь LocalStorage?',
   'Какой лимит (по памяти) у LocalStorage?',
 ];
+
+// ! HTTP Requests, AJAX
+export const httpRequestsQuestions = [
+  'Что такое XMLHttpRequest, как он работает?',
+  'Что возвращает запрос?',
+  'Что делает метод send()?',
+  'Как работает fetch? Что возращает fetch?',
+  'Какой запрос нужно сделать, чтобы стянуть данные?',
+  'Что возвращает JSON?',
+  'Что удобнее fetch или XMLHttpRequest?',
+  'Как fetch передается в настройки?',
+  'Как работают try catch, async await?',
+  'Для чего нужен async?',
+  'Как работает ajax?',
+];

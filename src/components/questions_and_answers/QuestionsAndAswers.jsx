@@ -52,9 +52,13 @@ const QuestionsAndAswers = () => {
         >
           <CardHeader
             avatar={
-              <IconButton onClick={handleNextStudent}>
-                <ShuffleIcon />
-              </IconButton>
+              <Button
+                variant="contained"
+                onClick={handleNextStudent}
+                startIcon={<ShuffleIcon />}
+              >
+                Shuffle
+              </Button>
             }
             title={students[studentInx]?.name}
             titleTypographyProps={{ fontWeight: 800, fontSize: 32 }}
