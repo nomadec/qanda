@@ -6,12 +6,29 @@ const dataKeyTopic = 'erudite_questions_topic';
 function initData() {
   if (!localStorage.getItem(dataKey)) {
     localStorage.setItem(dataKey, JSON.stringify(questionsDataSample));
+  } else {
+    initMigration();
   }
   if (!localStorage.getItem(dataKeyTopic)) {
     localStorage.setItem(dataKeyTopic, JSON.stringify('default'));
   }
 }
 initData();
+
+function initMigration() {
+  const arr = getQuestions();
+  const arrNew = arr.map((el) => {
+    if ('img' in el) {
+      el.cover = `image:${el.img}`;
+      delete el.img;
+    }
+    if (!('order' in el)) {
+      el.order = el.id;
+    }
+    return el;
+  });
+  putQuestions(arrNew);
+}
 
 export function getQuestions() {
   return JSON.parse(localStorage.getItem(dataKey));

@@ -56,7 +56,12 @@ const EruditeQuestionsMenu = () => {
   }
 
   function filterQuestionsByTopic(topic) {
-    return questions.filter((el) => (el.topic || 'default') === topic);
+    const filteredQuestions = questions.filter(
+      (el) => (el.topic || 'default') === topic
+    );
+    return filteredQuestions.sort(
+      (a, b) => (a.order || a.id) - (b.order || b.id)
+    );
   }
 
   function getTopics() {

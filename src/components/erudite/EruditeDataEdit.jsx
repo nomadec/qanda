@@ -13,6 +13,7 @@ import {
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 50 },
+  { field: 'order', headerName: 'Order', width: 70, editable: true },
   {
     field: 'topic',
     headerName: 'Topic',
@@ -32,8 +33,8 @@ const columns = [
     editable: true,
   },
   {
-    field: 'img',
-    headerName: 'Image URL link',
+    field: 'cover',
+    headerName: 'Cover',
     width: 150,
     editable: true,
   },
@@ -77,9 +78,10 @@ const EruditeDataEdit = () => {
 
   function handleNewRecord() {
     const newRecord = {
+      order: null,
       question: null,
       answer: null,
-      img: null,
+      cover: null,
       timer: 60,
       isActive: true,
       questionFontSize: 48,
